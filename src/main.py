@@ -53,17 +53,23 @@ def main():
             print(f'  Unknown ATS "{ats}" for {name} — skipping')
             continue
 
+        # Per-company seniority override (e.g. Palantir uses 'lead' not 'director')
+        from filters import _parse_list
+        co_seniority_raw = str(company.get('Seniority Override', '')).strip()
+        co_profile = dict(profile)
+        if co_seniority_raw:
+            co_profile['seniority_keywords'] = co_seniority_raw
+
         print(f'\n{name} ({ats}/{handle})')
         if ats == 'workday':
-            from filters import _parse_list
-            seniority = _parse_list(profile.get('seniority_keywords', ''))
+            seniority = _parse_list(co_profile.get('seniority_keywords', ''))
             jobs = fetch_fn(handle, name, seniority_keywords=seniority or None)
         else:
             jobs = fetch_fn(handle, name)
         total_fetched += len(jobs)
         print(f'  Fetched:   {len(jobs)}')
 
-        filtered = [j for j in jobs if not is_too_old(j) and passes_title_filter(j, profile)]
+        filtered = [j for j in jobs if not is_too_old(j) and passes_title_filter(j, co_profile)]
         total_filtered += len(filtered)
         print(f'  Filtered:  {len(filtered)}')
 

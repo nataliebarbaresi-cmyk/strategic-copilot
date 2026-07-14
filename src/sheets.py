@@ -34,12 +34,12 @@ _PROFILE_PLACEHOLDER = [
 ]
 
 _COMPANIES_PLACEHOLDER = [
-    ['Example Company', 'ashby',      'example-handle', 'N'],
-    ['Another Company', 'greenhouse', 'another-handle', 'N'],
+    ['Example Company', 'ashby',      'example-handle', 'N', ''],
+    ['Another Company', 'greenhouse', 'another-handle', 'N', ''],
 ]
 
 _TAB_SETUP = [
-    (COMPANIES_TAB, ['Company Name', 'ATS Type', 'ATS Handle', 'Active'], _COMPANIES_PLACEHOLDER),
+    (COMPANIES_TAB, ['Company Name', 'ATS Type', 'ATS Handle', 'Active', 'Seniority Override'], _COMPANIES_PLACEHOLDER),
     (PROFILE_TAB,   ['Field', 'Value'],                                   _PROFILE_PLACEHOLDER),
     (SCORED_TAB,    ['Job URL'],                                          []),
     (RESULTS_TAB,   RESULTS_HEADERS,                                      []),
